@@ -1,5 +1,3 @@
-/*@import url("vendors/bootstrap.css");*/
-
 html {
     font-size: 100%;
     font-family: Arial, sans-serif;
@@ -257,7 +255,6 @@ html, body {
     border-radius: 1024px;
     cursor: pointer;
     transition: .25s ease-in-out;
-    transition-property: background-color, box-shadow;
 }
 
 .section__tab_active {
@@ -432,7 +429,6 @@ html, body {
     background: #F7F7F7;
     text-align: left;
     transition: .25s ease-in-out;
-    transition-property: background-color, box-shadow;
     cursor: pointer;
     appearance: none;
 }
