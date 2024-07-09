@@ -211,6 +211,7 @@
         const initedRef = React.useRef(false);
         const [activeTab, setActiveTab] = React.useState('');
         const [hasRightScroll, setHasRightScroll] = React.useState(false);
+        const [sizes, setSizes] = React.useState([]);
 
         React.useEffect(() => {
             if (!activeTab && !initedRef.current) {
@@ -223,10 +224,9 @@
             setActiveTab(event.target.value);
         };
 
-        let sizes = [];
-        const onSize = size => {
-            sizes = sizes.concat(size);
-        };
+        const onSize = React.useCallback((size) => {
+            setSizes(prevSizes => [...prevSizes, size]);
+        }, [sizes]);
 
         React.useEffect(() => {
             const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
