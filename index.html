@@ -6,7 +6,7 @@
           content="width=device-width, initial-scale=1.0">
     <title>Яндекс.Дом</title>
     <link rel="preload" as="font" href="assets/lato.woff2" type="font/woff2" crossorigin="anonymous">
-    <script src="vendors/react-with-dom.js" async></script>
+    <script src="vendors/react-with-dom.js" defer></script>
     <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -35,19 +35,19 @@
     </div>
 </footer>
 
-<script src="vendors/babel.min.js"></script>
+<script src="vendors/babel.min.js" defer></script>
 <script type="text/babel">
     function Header() {
         let [expanded, setExpanded] = React.useState(false);
         let [toggled, setToggled] = React.useState(false);
 
-        const onClick = () => {
+        const onClick = React.useCallback(() => {
             if (!toggled) {
                 setToggled(true);
             }
 
             setExpanded(!expanded);
-        };
+        }, [toggled]);
 
         return <header className="header">
             <a href="/" className="header__logo" aria-label="Яндекс.Дом"></a>
@@ -230,7 +230,6 @@
 
         React.useEffect(() => {
             const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
-            const sumHeight = sizes.reduce((acc, item) => acc + item.height, 0);
 
             const newHasRightScroll = sumWidth > ref.current.offsetWidth;
             if (newHasRightScroll !== hasRightScroll) {
