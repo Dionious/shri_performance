@@ -201,6 +201,9 @@
             }]
         }
     };
+    for (let i = 0; i < 6; ++i) {
+        TABS.all.items = TABS.all.items.concat(TABS.all.items);
+    }
     const TABS_KEYS = Object.keys(TABS);
 
     function Main() {
@@ -208,7 +211,6 @@
         const initedRef = React.useRef(false);
         const [activeTab, setActiveTab] = React.useState('');
         const [hasRightScroll, setHasRightScroll] = React.useState(false);
-        const [currentTabs, setCurrentTabs] = React.useState(TABS);
 
         React.useEffect(() => {
             if (!activeTab && !initedRef.current) {
@@ -236,10 +238,6 @@
         });
 
         const onArrowCLick = () => {
-            const updatedTabs = { ...currentTabs };
-            updatedTabs[activeTab].items = updatedTabs[activeTab].items.concat(updatedTabs[activeTab].items);
-
-            setCurrentTabs(updatedTabs);
             const scroller = ref.current.querySelector('.section__panel:not(.section__panel_hidden)');
             if (scroller) {
                 scroller.scrollTo({
@@ -349,7 +347,7 @@
                     <select className="section__select" defaultValue="all" onInput={onSelectInput}>
                         {TABS_KEYS.map(key =>
                             <option key={key} value={key}>
-                                {currentTabs[key].title}
+                                {TABS[key].title}
                             </option>
                         )}
                     </select>
@@ -366,7 +364,7 @@
                                 aria-controls={`panel_${key}`}
                                 onClick={() => setActiveTab(key)}
                             >
-                                {currentTabs[key].title}
+                                {TABS[key].title}
                             </li>
                         )}
                     </ul>
@@ -376,7 +374,7 @@
                     {TABS_KEYS.map(key =>
                         <div key={key} role="tabpanel" className={'section__panel' + (key === activeTab ? '' : ' section__panel_hidden')} aria-hidden={key === activeTab ? 'false' : 'true'} id={`panel_${key}`} aria-labelledby={`tab_${key}`}>
                             <ul className="section__panel-list">
-                                {currentTabs[key].items.map((item, index) =>
+                                {TABS[key].items.map((item, index) =>
                                     <Event
                                         key={index}
                                         {...item}
