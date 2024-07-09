@@ -36,7 +36,7 @@
 </footer>
 
 <script src="vendors/babel.min.js" defer></script>
-<script type="text/babel">
+<script type="text/babel" defer>
     function Header() {
         let [expanded, setExpanded] = React.useState(false);
         let [toggled, setToggled] = React.useState(false);
@@ -200,11 +200,9 @@
             }]
         }
     };
-    const newItems = [...TABS.all.items];
     for (let i = 0; i < 6; ++i) {
-        newItems.push(...newItems);
+        TABS.all.items = TABS.all.items.concat(TABS.all.items);
     }
-    TABS.all.items = newItems;
     const TABS_KEYS = Object.keys(TABS);
 
     function Main() {
