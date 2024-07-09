@@ -200,9 +200,9 @@
             }]
         }
     };
-    const newItems = [];
+    const newItems = [...TABS.all.items];
     for (let i = 0; i < 6; ++i) {
-        newItems.push(...TABS.all.items);
+        newItems.push(...newItems);
     }
     TABS.all.items = newItems;
     const TABS_KEYS = Object.keys(TABS);
