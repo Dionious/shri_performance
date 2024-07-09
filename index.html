@@ -6,7 +6,7 @@
           content="width=device-width, initial-scale=1.0">
     <title>Яндекс.Дом</title>
     <link rel="preload" as="font" href="assets/lato.woff2" type="font/woff2" crossorigin="anonymous">
-    <script src="vendors/react-with-dom.js" async></script>
+    <script src="vendors/react-with-dom.js"></script>
     <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -201,6 +201,9 @@
             }]
         }
     };
+    for (let i = 0; i < 6; ++i) {
+        TABS.all.items = [...TABS.all.items, ...TABS.all.items];
+    }
     const TABS_KEYS = Object.keys(TABS);
 
     function Main() {
@@ -208,15 +211,6 @@
         const initedRef = React.useRef(false);
         const [activeTab, setActiveTab] = React.useState('');
         const [hasRightScroll, setHasRightScroll] = React.useState(false);
-        const [items, setItems] = React.useState(TABS.all.items);
-        const [maxItems, setMaxItems] = React.useState(0);
-
-        const handleUpdateItems = () => {
-            let updatedItems = items;
-            updatedItems = updatedItems.concat(updatedItems);
-            setItems(updatedItems);
-            TABS.all.items = updatedItems;
-        };
 
         React.useEffect(() => {
             if (!activeTab && !initedRef.current) {
@@ -231,7 +225,7 @@
 
         let sizes = [];
         const onSize = size => {
-            sizes = sizes.concat(size);
+            sizes = [...sizes, size];
         };
 
         React.useEffect(() => {
@@ -245,10 +239,6 @@
         });
 
         const onArrowCLick = () => {
-            setMaxItems(maxItems + 1);
-            if (maxItems < 6) {
-                handleUpdateItems();
-            }
             const scroller = ref.current.querySelector('.section__panel:not(.section__panel_hidden)');
             if (scroller) {
                 scroller.scrollTo({
@@ -411,7 +401,7 @@
                 <Main />
             </>
         );
-    }, 0);
+    }, 100);
 </script>
 
 </body>
