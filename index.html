@@ -6,9 +6,8 @@
           content="width=device-width, initial-scale=1.0">
     <title>Яндекс.Дом</title>
     <link rel="preload" as="font" href="assets/lato.woff2" type="font/woff2" crossorigin="anonymous">
-    <script src="vendors/react-with-dom.js" defer></script>
-    <link rel="stylesheet" type="text/css" href="reset.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="preload" as="style" href="reset.css" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="styles.css" onload="this.onload=null;this.rel='stylesheet'">
 </head>
 <body>
 
@@ -399,6 +398,6 @@
         );
     }, 0);
 </script>
-
+<script src="vendors/react-with-dom.js" defer></script>
 </body>
 </html>
