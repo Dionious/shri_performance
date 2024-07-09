@@ -6,7 +6,7 @@
           content="width=device-width, initial-scale=1.0">
     <title>Яндекс.Дом</title>
     <link rel="preload" as="font" href="assets/lato.woff2" type="font/woff2" crossorigin="anonymous">
-    <script src="vendors/react-with-dom.js"></script>
+    <script src="vendors/react-with-dom.js" async></script>
     <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -202,7 +202,7 @@
         }
     };
     for (let i = 0; i < 6; ++i) {
-        TABS.all.items = [...TABS.all.items, ...TABS.all.items];
+        TABS.all.items = TABS.all.items.concat(TABS.all.items);
     }
     const TABS_KEYS = Object.keys(TABS);
 
@@ -225,7 +225,7 @@
 
         let sizes = [];
         const onSize = size => {
-            sizes = [...sizes, size];
+            sizes = sizes.concat(size);
         };
 
         React.useEffect(() => {
@@ -401,7 +401,7 @@
                 <Main />
             </>
         );
-    }, 100);
+    }, 0);
 </script>
 
 </body>
