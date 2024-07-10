@@ -177,7 +177,9 @@ const TABS = {
     }
 };
 
-TABS.all.items = Array(64).fill(TABS.all.items).flat();
+for (let i = 0; i < 6; i++) {
+    TABS.all.items.push(...TABS.all.items);
+}
 const TABS_KEYS = ['all', 'kitchen', 'hall', 'lights', 'cameras'];
 
 function Main() {
