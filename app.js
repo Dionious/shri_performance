@@ -205,7 +205,8 @@ function Main() {
     };
 
     React.useEffect(() => {
-        const newHasRightScroll = width > ref.current.offsetWidth;
+        const length = document.getElementById(`panel_${activeTab}`)?.getElementsByClassName('section__panel-list')[0].children.length || null;
+        const newHasRightScroll = length > 20;
         if (newHasRightScroll !== hasRightScroll) {
             setHasRightScroll(newHasRightScroll);
         }
