@@ -1,4 +1,4 @@
-const Header = React.memo(function Header() {
+function Header() {
     let [expanded, setExpanded] = React.useState(false);
     let [toggled, setToggled] = React.useState(false);
 
@@ -41,9 +41,9 @@ const Header = React.memo(function Header() {
             )
         )
     );
-});
+}
 
-const Event = React.memo(function Event(props) {
+function Event(props) {
     const ref = React.useRef();
 
     const { onSize } = props;
@@ -67,7 +67,7 @@ const Event = React.memo(function Event(props) {
             React.createElement('span', { className: 'event__subtitle' }, props.subtitle)
         )
     );
-});
+}
 
 const TABS = {
     all: {

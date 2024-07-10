@@ -13,5 +13,6 @@
     <orderEntry type="library" name="inferno.umd" level="application" />
     <orderEntry type="library" name="preact.umd" level="application" />
     <orderEntry type="library" name="preact-compat.umd" level="application" />
+    <orderEntry type="library" name="react-window" level="application" />
   </component>
 </module>
