@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </section>
             `;
-
+            mainContainer.innerHTML = main;
             const tabs = document.querySelectorAll('.section__tab');
             tabs.forEach(tab => {
                 tab.addEventListener('click', function(event) {
@@ -273,7 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 activeTab = event.target.value;
                 setActiveTab(activeTab);
             });
-            mainContainer.innerHTML = main;
         }
 
         function onScroll() {
