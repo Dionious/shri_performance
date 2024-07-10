@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function onScroll() {
             const wrapper = document.getElementsByClassName(`section__panel-list ${activeTab}`)[0];
-            const newHasRightScroll = wrapper.children.length > 5;
+            const newHasRightScroll = wrapper.children.length > 20;
             if (newHasRightScroll !== hasRightScroll) {
                 hasRightScroll = newHasRightScroll;
                 renderMain();
