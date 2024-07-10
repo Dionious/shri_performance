@@ -1,11 +1,8 @@
-import { h, render } from 'https://unpkg.com/preact@latest?module';
-import { useState, useEffect, useCallback, useRef } from 'https://unpkg.com/preact@latest/hooks/dist/hooks.module.js?module';
-
 function Header() {
-    let [expanded, setExpanded] = useState(false);
-    let [toggled, setToggled] = useState(false);
+    let [expanded, setExpanded] = React.useState(false);
+    let [toggled, setToggled] = React.useState(false);
 
-    const onClick = useCallback(() => {
+    const onClick = React.useCallback(() => {
         if (!toggled) {
             setToggled(true);
         }
@@ -13,61 +10,61 @@ function Header() {
         setExpanded(!expanded);
     }, [toggled]);
 
-    return h('header', { className: 'header' },
-        h('a', { href: '/', className: 'header__logo', 'aria-label': 'Яндекс.Дом' }),
-        h('button', {
+    return React.createElement('header', { className: 'header' },
+        React.createElement('a', { href: '/', className: 'header__logo', 'aria-label': 'Яндекс.Дом' }),
+        React.createElement('button', {
                 className: 'header__menu',
                 'aria-expanded': expanded ? 'true' : 'false',
                 onClick: onClick
             },
-            h('span', { className: 'header__menu-text a11y-hidden' },
+            React.createElement('span', { className: 'header__menu-text a11y-hidden' },
                 expanded ? 'Закрыть меню' : 'Открыть меню'
             )
         ),
-        h('ul', {
+        React.createElement('ul', {
                 className: 'header__links' +
                     (expanded ? ' header__links_opened' : '') +
                     (toggled ? ' header__links-toggled' : '')
             },
-            h('li', { className: 'header__item' },
-                h('a', {
+            React.createElement('li', { className: 'header__item' },
+                React.createElement('a', {
                     className: 'header__link header__link_current',
                     href: '/',
                     'aria-current': 'page'
                 }, 'Сводка')
             ),
-            h('li', { className: 'header__item' },
-                h('a', { className: 'header__link', href: '/devices' }, 'Устройства')
+            React.createElement('li', { className: 'header__item' },
+                React.createElement('a', { className: 'header__link', href: '/devices' }, 'Устройства')
             ),
-            h('li', { className: 'header__item' },
-                h('a', { className: 'header__link', href: '/scripts' }, 'Сценарии')
+            React.createElement('li', { className: 'header__item' },
+                React.createElement('a', { className: 'header__link', href: '/scripts' }, 'Сценарии')
             )
         )
     );
 }
 
 function Event(props) {
-    const ref = useRef();
+    const ref = React.useRef();
 
     const { onSize } = props;
 
-    useEffect(() => {
+    React.useEffect(() => {
         const width = ref.current.offsetWidth;
         if (onSize) {
             onSize(width);
         }
     });
 
-    return h('li', { ref: ref, className: 'event' + (props.slim ? ' event_slim' : '') },
-        h('button', { className: 'event__button' },
-            h('span', {
+    return React.createElement('li', { ref: ref, className: 'event' + (props.slim ? ' event_slim' : '') },
+        React.createElement('button', { className: 'event__button' },
+            React.createElement('span', {
                 className: `event__icon event__icon_${props.icon}`,
                 role: 'img',
                 'aria-label': props.iconLabel
             }),
-            h('h4', { className: 'event__title' }, props.title),
+            React.createElement('h4', { className: 'event__title' }, props.title),
             props.subtitle &&
-            h('span', { className: 'event__subtitle' }, props.subtitle)
+            React.createElement('span', { className: 'event__subtitle' }, props.subtitle)
         )
     );
 }
@@ -186,24 +183,28 @@ for (let i = 0; i < 6; i++) {
 const TABS_KEYS = ['all', 'kitchen', 'hall', 'lights', 'cameras'];
 
 function Main() {
-    const ref = useRef();
-    const initedRef = useRef(false);
-    const [activeTab, setActiveTab] = useState('');
-    const [hasRightScroll, setHasRightScroll] = useState(false);
+    const ref = React.useRef();
+    const initedRef = React.useRef(false);
+    const [activeTab, setActiveTab] = React.useState('');
+    const [hasRightScroll, setHasRightScroll] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!activeTab && !initedRef.current) {
             initedRef.current = true;
             setActiveTab(new URLSearchParams(location.search).get('tab') || 'all');
         }
     });
 
+    const onSelectInput = event => {
+        setActiveTab(event.target.value);
+    };
+
     let width = 0;
     const onSize = newWidth => {
         width += newWidth;
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         const newHasRightScroll = width > ref.current.offsetWidth;
         if (newHasRightScroll !== hasRightScroll) {
             setHasRightScroll(newHasRightScroll);
@@ -220,31 +221,27 @@ function Main() {
         }
     };
 
-    const onSelectInput = event => {
-        setActiveTab(event.target.value);
-    };
-
-    return h('main', { className: 'main' },
-        h('section', { className: 'section main__general' },
-            h('h2', { className: 'section__title section__title-header section__main-title' }, 'Главное'),
-            h('div', { className: 'hero-dashboard' },
-                h('div', { className: 'hero-dashboard__primary' },
-                    h('h3', { className: 'hero-dashboard__title' }, 'Привет, Геннадий!'),
-                    h('p', { className: 'hero-dashboard__subtitle' }, 'Двери и окна закрыты, сигнализация включена.'),
-                    h('ul', { className: 'hero-dashboard__info' },
-                        h('li', { className: 'hero-dashboard__item' },
-                            h('div', { className: 'hero-dashboard__item-title' }, 'Дома'),
-                            h('div', { className: 'hero-dashboard__item-details' },
+    return React.createElement('main', { className: 'main' },
+        React.createElement('section', { className: 'section main__general' },
+            React.createElement('h2', { className: 'section__title section__title-header section__main-title' }, 'Главное'),
+            React.createElement('div', { className: 'hero-dashboard' },
+                React.createElement('div', { className: 'hero-dashboard__primary' },
+                    React.createElement('h3', { className: 'hero-dashboard__title' }, 'Привет, Геннадий!'),
+                    React.createElement('p', { className: 'hero-dashboard__subtitle' }, 'Двери и окна закрыты, сигнализация включена.'),
+                    React.createElement('ul', { className: 'hero-dashboard__info' },
+                        React.createElement('li', { className: 'hero-dashboard__item' },
+                            React.createElement('div', { className: 'hero-dashboard__item-title' }, 'Дома'),
+                            React.createElement('div', { className: 'hero-dashboard__item-details' },
                                 '+23',
-                                h('span', { className: 'a11y-hidden' }, '°')
+                                React.createElement('span', { className: 'a11y-hidden' }, '°')
                             )
                         ),
-                        h('li', { className: 'hero-dashboard__item' },
-                            h('div', { className: 'hero-dashboard__item-title' }, 'За окном'),
-                            h('div', { className: 'hero-dashboard__item-details' },
+                        React.createElement('li', { className: 'hero-dashboard__item' },
+                            React.createElement('div', { className: 'hero-dashboard__item-title' }, 'За окном'),
+                            React.createElement('div', { className: 'hero-dashboard__item-details' },
                                 '+19',
-                                h('span', { className: 'a11y-hidden' }, '°'),
-                                h('div', {
+                                React.createElement('span', { className: 'a11y-hidden' }, '°'),
+                                React.createElement('div', {
                                     className: 'hero-dashboard__icon hero-dashboard__icon_rain',
                                     role: 'img',
                                     'aria-label': 'Дождь'
@@ -253,20 +250,20 @@ function Main() {
                         )
                     )
                 ),
-                h('ul', { className: 'hero-dashboard__schedule' },
-                    h(Event, {
+                React.createElement('ul', { className: 'hero-dashboard__schedule' },
+                    React.createElement(Event, {
                         icon: 'temp',
                         iconLabel: 'Температура',
                         title: 'Philips Cooler',
                         subtitle: 'Начнет охлаждать в 16:30'
                     }),
-                    h(Event, {
+                    React.createElement(Event, {
                         icon: 'light',
                         iconLabel: 'Освещение',
                         title: 'Xiaomi Yeelight LED Smart Bulb',
                         subtitle: 'Включится в 17:00'
                     }),
-                    h(Event, {
+                    React.createElement(Event, {
                         icon: 'light',
                         iconLabel: 'Освещение',
                         title: 'Xiaomi Yeelight LED Smart Bulb',
@@ -276,35 +273,35 @@ function Main() {
             )
         ),
 
-        h('section', { className: 'section main__scripts' },
-            h('h2', { className: 'section__title section__title-header' }, 'Избранные сценарии'),
-            h('ul', { className: 'event-grid' },
-                h(Event, {
+        React.createElement('section', { className: 'section main__scripts' },
+            React.createElement('h2', { className: 'section__title section__title-header' }, 'Избранные сценарии'),
+            React.createElement('ul', { className: 'event-grid' },
+                React.createElement(Event, {
                     slim: true,
                     icon: 'light2',
                     iconLabel: 'Освещение',
                     title: 'Выключить весь свет в доме и во дворе'
                 }),
-                h(Event, {
+                React.createElement(Event, {
                     slim: true,
                     icon: 'schedule',
                     iconLabel: 'Расписание',
                     title: 'Я ухожу'
                 }),
-                h(Event, {
+                React.createElement(Event, {
                     slim: true,
                     icon: 'light2',
                     iconLabel: 'Освещение',
                     title: 'Включить свет в коридоре'
                 }),
-                h(Event, {
+                React.createElement(Event, {
                     slim: true,
                     icon: 'temp2',
                     iconLabel: 'Температура',
                     title: 'Набрать горячую ванну',
                     subtitle: 'Начнётся в 18:00'
                 }),
-                h(Event, {
+                React.createElement(Event, {
                     slim: true,
                     icon: 'temp2',
                     iconLabel: 'Температура',
@@ -313,19 +310,19 @@ function Main() {
             )
         ),
 
-        h('section', { className: 'section main__devices' },
-            h('div', { className: 'section__title' },
-                h('h2', { className: 'section__title-header' }, 'Избранные устройства'),
+        React.createElement('section', { className: 'section main__devices' },
+            React.createElement('div', { className: 'section__title' },
+                React.createElement('h2', { className: 'section__title-header' }, 'Избранные устройства'),
 
-                h('select', { className: 'section__select', defaultValue: 'all', onInput: onSelectInput },
+                React.createElement('select', { className: 'section__select', defaultValue: 'all', onInput: onSelectInput },
                     TABS_KEYS.map(key =>
-                        h('option', { key: key, value: key }, TABS[key].title)
+                        React.createElement('option', { key: key, value: key }, TABS[key].title)
                     )
                 ),
 
-                h('ul', { role: 'tablist', className: 'section__tabs' },
+                React.createElement('ul', { role: 'tablist', className: 'section__tabs' },
                     TABS_KEYS.map(key =>
-                        h('li', {
+                        React.createElement('li', {
                             key: key,
                             role: 'tab',
                             'aria-selected': key === activeTab ? 'true' : 'false',
@@ -339,9 +336,9 @@ function Main() {
                 )
             ),
 
-            h('div', { className: 'section__panel-wrapper', ref: ref },
+            React.createElement('div', { className: 'section__panel-wrapper', ref: ref },
                 TABS_KEYS.map(key =>
-                    h('div', {
+                    React.createElement('div', {
                             key: key,
                             role: 'tabpanel',
                             className: 'section__panel' + (key === activeTab ? '' : ' section__panel_hidden'),
@@ -349,9 +346,9 @@ function Main() {
                             id: `panel_${key}`,
                             'aria-labelledby': `tab_${key}`
                         },
-                        h('ul', { className: 'section__panel-list' },
+                        React.createElement('ul', { className: 'section__panel-list' },
                             TABS[key].items.map((item, index) =>
-                                h(Event, {
+                                React.createElement(Event, {
                                     key: index,
                                     ...item,
                                     onSize: onSize
@@ -361,41 +358,41 @@ function Main() {
                     )
                 ),
                 hasRightScroll &&
-                h('div', { className: 'section__arrow', onClick: onArrowCLick })
+                React.createElement('div', { className: 'section__arrow', onClick: onArrowCLick })
             )
         )
     );
 }
 
 function Footer() {
-    return h('footer', { className: 'footer' },
-        h('ul', { className: 'footer__list' },
-            h('li', { className: 'footer__item' },
-                h('a', { className: 'footer__link', href: '/' }, 'Помощь')
+    return React.createElement('footer', { className: 'footer' },
+        React.createElement('ul', { className: 'footer__list' },
+            React.createElement('li', { className: 'footer__item' },
+                React.createElement('a', { className: 'footer__link', href: '/' }, 'Помощь')
             ),
-            h('li', { className: 'footer__item' },
-                h('a', { className: 'footer__link', href: '/' }, 'Обратная связь')
+            React.createElement('li', { className: 'footer__item' },
+                React.createElement('a', { className: 'footer__link', href: '/' }, 'Обратная связь')
             ),
-            h('li', { className: 'footer__item' },
-                h('a', { className: 'footer__link', href: '/' }, 'Разработчикам')
+            React.createElement('li', { className: 'footer__item' },
+                React.createElement('a', { className: 'footer__link', href: '/' }, 'Разработчикам')
             ),
-            h('li', { className: 'footer__item' },
-                h('a', { className: 'footer__link', href: '/' }, 'Условия использования')
+            React.createElement('li', { className: 'footer__item' },
+                React.createElement('a', { className: 'footer__link', href: '/' }, 'Условия использования')
             )
         ),
-        h('div', { className: 'footer__copyright' },
+        React.createElement('div', { className: 'footer__copyright' },
             '© 1997–2023 ООО «Яндекс»'
         )
     );
 }
 
 setTimeout(() => {
-    render(
-        h('div', {},
-            h(Header),
-            h(Main),
+    ReactDOM.render(
+        React.createElement(React.Fragment, null,
+            React.createElement(Header),
+            React.createElement(Main),
         ),
         document.getElementById('app')
     );
-    render(h(Footer), document.getElementById('footer'));
+    ReactDOM.render(React.createElement(Footer), document.getElementById('footer'));
 }, 0);
