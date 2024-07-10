@@ -363,34 +363,11 @@ function Main() {
     );
 }
 
-function Footer() {
-    return React.createElement('footer', { className: 'footer' },
-        React.createElement('ul', { className: 'footer__list' },
-            React.createElement('li', { className: 'footer__item' },
-                React.createElement('a', { className: 'footer__link', href: '/' }, 'Помощь')
-            ),
-            React.createElement('li', { className: 'footer__item' },
-                React.createElement('a', { className: 'footer__link', href: '/' }, 'Обратная связь')
-            ),
-            React.createElement('li', { className: 'footer__item' },
-                React.createElement('a', { className: 'footer__link', href: '/' }, 'Разработчикам')
-            ),
-            React.createElement('li', { className: 'footer__item' },
-                React.createElement('a', { className: 'footer__link', href: '/' }, 'Условия использования')
-            )
-        ),
-        React.createElement('div', { className: 'footer__copyright' },
-            '© 1997–2023 ООО «Яндекс»'
-        )
-    );
-}
-
 setTimeout(() => {
     ReactDOM.render(
         React.createElement(React.Fragment, null,
             React.createElement(Header),
             React.createElement(Main),
-            React.createElement(Footer),
         ),
         document.getElementById('app')
     );
