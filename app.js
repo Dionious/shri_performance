@@ -46,15 +46,6 @@ function Header() {
 function Event(props) {
     const ref = React.useRef();
 
-    const { onSize } = props;
-
-    React.useEffect(() => {
-        const width = ref.current.offsetWidth;
-        if (onSize) {
-            onSize(width);
-        }
-    });
-
     return React.createElement('li', { ref: ref, className: 'event' + (props.slim ? ' event_slim' : '') },
         React.createElement('button', { className: 'event__button' },
             React.createElement('span', {
@@ -197,11 +188,6 @@ function Main() {
 
     const onSelectInput = event => {
         setActiveTab(event.target.value);
-    };
-
-    let width = 0;
-    const onSize = newWidth => {
-        width += newWidth;
     };
 
     React.useEffect(() => {
@@ -352,7 +338,6 @@ function Main() {
                                 React.createElement(Event, {
                                     key: index,
                                     ...item,
-                                    onSize: onSize
                                 })
                             )
                         )
