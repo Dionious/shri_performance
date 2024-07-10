@@ -177,7 +177,6 @@ function Main() {
     const ref = React.useRef();
     const initedRef = React.useRef(false);
     const [activeTab, setActiveTab] = React.useState('');
-    const [hasRightScroll, setHasRightScroll] = React.useState(false);
 
     React.useEffect(() => {
         if (!activeTab && !initedRef.current) {
@@ -189,13 +188,6 @@ function Main() {
     const onSelectInput = event => {
         setActiveTab(event.target.value);
     };
-
-    React.useEffect(() => {
-        const newHasRightScroll = activeTab === 'all';
-        if (newHasRightScroll !== hasRightScroll) {
-            setHasRightScroll(newHasRightScroll);
-        }
-    });
 
     const onArrowCLick = () => {
         const scroller = ref.current.querySelector('.section__panel:not(.section__panel_hidden)');
@@ -342,7 +334,7 @@ function Main() {
                         )
                     )
                 ),
-                hasRightScroll &&
+                activeTab === 'all' &&
                 React.createElement('div', { className: 'section__arrow', onClick: onArrowCLick })
             )
         )
