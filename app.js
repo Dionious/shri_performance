@@ -1,63 +1,43 @@
-const { useState, useEffect, useRef, useCallback, useMemo } = React;
-
 function Header() {
-    const [state, setState] = useState({ expanded: false, toggled: false });
+    let [expanded, setExpanded] = React.useState(false);
+    let [toggled, setToggled] = React.useState(false);
 
-    const onClick = useCallback(() => {
-        setState(prevState => ({
-            toggled: true,
-            expanded: !prevState.expanded,
-        }));
-    }, []);
+    const onClick = React.useCallback(() => {
+        if (!toggled) {
+            setToggled(true);
+        }
 
-    return React.createElement(
-        'header',
-        { className: 'header' },
+        setExpanded(!expanded);
+    }, [toggled]);
+
+    return React.createElement('header', { className: 'header' },
         React.createElement('a', { href: '/', className: 'header__logo', 'aria-label': 'Яндекс.Дом' }),
-        React.createElement(
-            'button',
-            {
+        React.createElement('button', {
                 className: 'header__menu',
-                'aria-expanded': state.expanded ? 'true' : 'false',
-                onClick
+                'aria-expanded': expanded ? 'true' : 'false',
+                onClick: onClick
             },
-            React.createElement(
-                'span',
-                { className: 'header__menu-text a11y-hidden' },
-                state.expanded ? 'Закрыть меню' : 'Открыть меню'
+            React.createElement('span', { className: 'header__menu-text a11y-hidden' },
+                expanded ? 'Закрыть меню' : 'Открыть меню'
             )
         ),
-        React.createElement(
-            'ul',
-            {
-                className: `header__links${state.expanded ? ' header__links_opened' : ''}${state.toggled ? ' header__links-toggled' : ''}`
+        React.createElement('ul', {
+                className: 'header__links' +
+                    (expanded ? ' header__links_opened' : '') +
+                    (toggled ? ' header__links-toggled' : '')
             },
-            React.createElement(
-                'li',
-                { className: 'header__item' },
-                React.createElement(
-                    'a',
-                    { className: 'header__link header__link_current', href: '/', 'aria-current': 'page' },
-                    'Сводка'
-                )
+            React.createElement('li', { className: 'header__item' },
+                React.createElement('a', {
+                    className: 'header__link header__link_current',
+                    href: '/',
+                    'aria-current': 'page'
+                }, 'Сводка')
             ),
-            React.createElement(
-                'li',
-                { className: 'header__item' },
-                React.createElement(
-                    'a',
-                    { className: 'header__link', href: '/devices' },
-                    'Устройства'
-                )
+            React.createElement('li', { className: 'header__item' },
+                React.createElement('a', { className: 'header__link', href: '/devices' }, 'Устройства')
             ),
-            React.createElement(
-                'li',
-                { className: 'header__item' },
-                React.createElement(
-                    'a',
-                    { className: 'header__link', href: '/scripts' },
-                    'Сценарии'
-                )
+            React.createElement('li', { className: 'header__item' },
+                React.createElement('a', { className: 'header__link', href: '/scripts' }, 'Сценарии')
             )
         )
     );
