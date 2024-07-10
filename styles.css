@@ -548,6 +548,10 @@ html, body {
     opacity: .7;
 }
 
+#footer {
+    margin-top: auto;
+}
+
 .footer {
     display: flex;
     flex: 0 0 auto;
