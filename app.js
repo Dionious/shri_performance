@@ -183,21 +183,21 @@ function Main() {
             initedRef.current = true;
             setActiveTab(new URLSearchParams(location.search).get('tab') || 'all');
         }
-    });
+    }, [activeTab]);
 
-    const onSelectInput = event => {
+    const onSelectInput = React.useCallback(event => {
         setActiveTab(event.target.value);
-    };
+    }, []);
 
-    const onArrowCLick = () => {
-        const scroller = ref.current.querySelector('.section__panel:not(.section__panel_hidden)');
+    const onArrowCLick = React.useCallback(() => {
+        const scroller = ref.current?.querySelector('.section__panel:not(.section__panel_hidden)');
         if (scroller) {
             scroller.scrollTo({
                 left: scroller.scrollLeft + 400,
                 behavior: 'smooth'
             });
         }
-    };
+    }, []);
 
     return React.createElement('main', { className: 'main' },
         React.createElement('section', { className: 'section main__general' },
